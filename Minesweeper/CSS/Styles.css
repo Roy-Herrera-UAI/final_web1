@@ -1,0 +1,17 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.board {
+  display: flex;
+  flex-wrap: wrap;
+  width: calc(var(--cols) * var(--cell-size));
+  height: calc(var(--rows) * var(--cell-size));
+}
+
+.cell {
+  width: var(--cell-size);
+  height: var(--cell-size);
+}
