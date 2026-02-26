@@ -14,7 +14,7 @@ var boardMatrix = [];
 var rows;
 var cols;
 
-function boardSetup(rowQuantity, colQuantity) {
+function boardSetup(rowQuantity, colQuantity, bombQuantity) {
     board.innerHTML = "";
     board.style.setProperty("--row-quantity", rowQuantity);
     board.style.setProperty("--col-quantity", colQuantity);
@@ -40,8 +40,8 @@ function boardSetup(rowQuantity, colQuantity) {
             });
         }
         boardMatrix.push(row);
-
     }
+    populateBombs(bombQuantity)
 }
 
 function populateBombs(bombQuantity) {
