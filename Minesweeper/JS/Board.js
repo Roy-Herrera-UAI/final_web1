@@ -190,6 +190,11 @@ function EndGame() {
     showAllBombs();
 }
 
+function Win() {
+    board.style.pointerEvents = "none";
+    document.getElementById("face").style.backgroundImage = "url(./Minesweeper/Sprites/minesweeper-swag.gif)";
+}
+
 function showAllBombs() {
 
     for (var r = 0; r < rows; r++) {
