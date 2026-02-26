@@ -35,8 +35,8 @@ function boardSetup(rowQuantity, colQuantity) {
                 revealed: false,
                 adjacentBombs: 0,
                 element: cell,
-                row: r,
-                col: c
+                row: rowNumber,
+                col: colNumber
             });
         }
         boardMatrix.push(row);
