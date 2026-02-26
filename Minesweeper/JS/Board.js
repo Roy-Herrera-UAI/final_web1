@@ -1,20 +1,13 @@
 "use strict";
-var BOARD_SIZE = 1000;
+var BOARD_SIZE = 800;
 var SIZE_FORMAT = "px";
 var board = document.getElementById("board");
-
-
 var boardMatrix = [];
-// cellsMatrix[row][col] = {
-//     bomb: false,
-//     revealed: false,
-//     element: cell
-// };
-
 var rows;
 var cols;
-
 function boardSetup(rowQuantity, colQuantity, bombQuantity) {
+    rows = rowQuantity;
+    cols = colQuantity;
     board.innerHTML = "";
     board.style.setProperty("--row-quantity", rowQuantity);
     board.style.setProperty("--col-quantity", colQuantity);
@@ -25,7 +18,6 @@ function boardSetup(rowQuantity, colQuantity, bombQuantity) {
         row.className = "row";
         board.appendChild(row);
         var rowArray = [];
-
         for (var colNumber = 0; colNumber < colQuantity; colNumber++) {
             var cell = document.createElement("div");
             cell.className = "cell";
@@ -39,7 +31,7 @@ function boardSetup(rowQuantity, colQuantity, bombQuantity) {
                 col: colNumber
             });
         }
-        boardMatrix.push(row);
+        boardMatrix.push(rowArray);
     }
     populateBombs(bombQuantity)
 }
@@ -61,7 +53,7 @@ function populateBombs(bombQuantity) {
         var r = Math.floor(Math.random() * rows);
         var c = Math.floor(Math.random() * cols);
 
-        if (!boardMatrix[r][c].contains("bomb")) {
+        if (!boardMatrix[r][c].bomb) {
             boardMatrix[r][c].bomb = true;
             bombsPlaced++;
         }
