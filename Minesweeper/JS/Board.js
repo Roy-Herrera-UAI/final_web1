@@ -6,13 +6,11 @@ var boardMatrix = [];
 var rows;
 var cols;
 function boardSetup(rowQuantity, colQuantity, bombQuantity) {
+    boardMatrix = []
     rows = rowQuantity;
     cols = colQuantity;
     board.innerHTML = "";
-    board.style.setProperty("--row-quantity", rowQuantity);
-    board.style.setProperty("--col-quantity", colQuantity);
     board.style.setProperty("--board-size", BOARD_SIZE + SIZE_FORMAT);
-    board.style.setProperty("--cell-size", (BOARD_SIZE / colQuantity) + SIZE_FORMAT);
     for (var rowNumber = 0; rowNumber < rowQuantity; rowNumber++) {
         var row = document.createElement("div");
         row.className = "row";
@@ -56,6 +54,21 @@ function populateBombs(bombQuantity) {
         if (!boardMatrix[r][c].bomb) {
             boardMatrix[r][c].bomb = true;
             bombsPlaced++;
+            boardMatrix[r][c].element.style.setProperty("background", "red")
         }
     }
+}
+
+
+
+function flagCell(cell){
+
+}
+
+function exposeCell(cell){
+
+}
+
+function chordCell(cell){
+
 }
