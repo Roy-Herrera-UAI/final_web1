@@ -101,7 +101,8 @@ function flagCell(cell) {
 }
 
 function revealCell(cell) {
-
+    var cellObj = boardMatrix[r][c];
+    console.log("Clicked:", r, c);
 }
 
 function chordCell(cell) {
