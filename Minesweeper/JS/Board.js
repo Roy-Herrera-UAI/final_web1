@@ -100,7 +100,7 @@ function flagCell(cell) {
 
 }
 
-function revealCell(cell) {
+function revealCell(r, c) {
     var cellObj = boardMatrix[r][c];
     console.log("Clicked:", r, c);
 }
