@@ -51,9 +51,15 @@ body {
 }
 
 .bomb {
-    background: black;
+    background-image: url("../Sprites/bomb.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
+.exploded {
+    background-color: red;
+}
 
 .revealed {
     background: rgb(246, 246, 246);
@@ -75,9 +81,7 @@ body {
 }
 
 #face {
-    display: flex;
-    justify-content: center;
-    align-items: center;    
+    display: flex;   
     background: rgb(121, 121, 121);
     border: 4px inset rgb(151, 151, 151);
     width: 100px;

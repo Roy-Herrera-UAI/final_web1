@@ -171,6 +171,7 @@ function leftClickCell(r, c) {
     var cell = getCellData(r, c);
     if (cell.flagged) return;
     if (cell.bomb) {
+        cell.element.classList.add("exploded")
         EndGame();
     }else if (cell.revealed){
         chordCell(cell);
@@ -186,5 +187,19 @@ function rightClickCell(r, c) {
 
 function EndGame() {
     board.style.pointerEvents = "none";
+    showAllBombs();
 }
 
+function showAllBombs() {
+
+    for (var r = 0; r < rows; r++) {
+        for (var c = 0; c < cols; c++) {
+
+            var cell = boardMatrix[r][c];
+
+            if (cell.bomb) {
+                cell.element.classList.add("bomb");
+            }
+        }
+    }
+}
