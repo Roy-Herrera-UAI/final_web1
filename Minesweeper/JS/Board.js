@@ -10,7 +10,7 @@ function boardSetup(rowQuantity, colQuantity, bombQuantity) {
     rows = rowQuantity;
     cols = colQuantity;
     board.innerHTML = "";
-    board.style.setProperty("--board-size", BOARD_SIZE + SIZE_FORMAT);
+    document.body.style.setProperty("--board-size", BOARD_SIZE + SIZE_FORMAT);
     for (var rowNumber = 0; rowNumber < rowQuantity; rowNumber++) {
         var row = document.createElement("div");
         row.className = "row";
@@ -181,3 +181,4 @@ function rightClickCell(r, c) {
 function EndGame() {
 
 }
+
