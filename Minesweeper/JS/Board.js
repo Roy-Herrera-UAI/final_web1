@@ -14,11 +14,17 @@ function boardSetup(rowQuantity, colQuantity, bombQuantity) {
     for (var rowNumber = 0; rowNumber < rowQuantity; rowNumber++) {
         var row = document.createElement("div");
         row.className = "row";
+
         board.appendChild(row);
         var rowArray = [];
         for (var colNumber = 0; colNumber < colQuantity; colNumber++) {
             var cell = document.createElement("div");
             cell.className = "cell";
+            (function (r, c) {
+                cell.addEventListener("click", function () {
+                    revealCell(r, c);
+                });
+            })(rowNumber, colNumber);
             row.appendChild(cell);
             rowArray.push({
                 bomb: false,
@@ -32,6 +38,7 @@ function boardSetup(rowQuantity, colQuantity, bombQuantity) {
         boardMatrix.push(rowArray);
     }
     populateBombs(bombQuantity)
+    calculateAdjacents();
 }
 
 function populateBombs(bombQuantity) {
@@ -59,16 +66,44 @@ function populateBombs(bombQuantity) {
     }
 }
 
+function calculateAdjacents() {
+    for (var r = 0; r < rows; r++) {
+        for (var c = 0; c < cols; c++) {
 
+            if (boardMatrix[r][c].bomb) continue;
 
-function flagCell(cell){
+            var count = 0;
+
+            for (var dr = -1; dr <= 1; dr++) {
+                for (var dc = -1; dc <= 1; dc++) {
+
+                    if (dr === 0 && dc === 0) continue;
+
+                    var newR = r + dr;
+                    var newC = c + dc;
+
+                    if (
+                        newR >= 0 && newR < rows &&
+                        newC >= 0 && newC < cols &&
+                        boardMatrix[newR][newC].bomb
+                    ) {
+                        count++;
+                    }
+                }
+            }
+            boardMatrix[r][c].adjacentBombs = count;
+        }
+    }
+}
+
+function flagCell(cell) {
 
 }
 
-function exposeCell(cell){
+function revealCell(cell) {
 
 }
 
-function chordCell(cell){
+function chordCell(cell) {
 
 }
