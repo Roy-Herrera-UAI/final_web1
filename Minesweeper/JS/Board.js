@@ -2,6 +2,18 @@
 var BOARD_SIZE = 1000;
 var SIZE_FORMAT = "px";
 var board = document.getElementById("board");
+
+
+var boardMatrix = [];
+// cellsMatrix[row][col] = {
+//     bomb: false,
+//     revealed: false,
+//     element: cell
+// };
+
+var rows;
+var cols;
+
 function boardSetup(rowQuantity, colQuantity) {
     board.innerHTML = "";
     board.style.setProperty("--row-quantity", rowQuantity);
@@ -11,14 +23,24 @@ function boardSetup(rowQuantity, colQuantity) {
     for (var rowNumber = 0; rowNumber < rowQuantity; rowNumber++) {
         var row = document.createElement("div");
         row.className = "row";
-        row.setAttribute("row-number", rowNumber);
-        board.appendChild(row)
+        board.appendChild(row);
+        var rowArray = [];
+
         for (var colNumber = 0; colNumber < colQuantity; colNumber++) {
             var cell = document.createElement("div");
             cell.className = "cell";
-            cell.setAttribute("position", [colNumber, rowNumber]);
             row.appendChild(cell);
+            rowArray.push({
+                bomb: false,
+                revealed: false,
+                adjacentBombs: 0,
+                element: cell,
+                row: r,
+                col: c
+            });
         }
+        boardMatrix.push(row);
+
     }
 }
 
@@ -36,13 +58,12 @@ function populateBombs(bombQuantity) {
 
     while (bombsPlaced < bombQuantity) {
 
-        var randomIndex = Math.floor(Math.random() * totalCells);
-        var cell = cells[randomIndex];
+        var r = Math.floor(Math.random() * rows);
+        var c = Math.floor(Math.random() * cols);
 
-        if (!cell.classList.contains("bomb")) {
-            cell.classList.add("bomb");
-            cell.setAttribute("is-bomb", "true");
-            bombsPlaced++;
+        if (!boardMatrix[r][c].contains("bomb")) {
+            gameBoard[r][c].bomb = true;
+            placed++;
         }
     }
 }
