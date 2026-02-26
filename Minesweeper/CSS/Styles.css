@@ -75,4 +75,12 @@ body {
     font-size: 50px;
 }
 
+#face {
+    background-image: url("../Sprites/MINESWEEPER_SMILEY.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
 
