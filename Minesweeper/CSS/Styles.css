@@ -36,3 +36,6 @@ body {
     border: 4px inset rgb(151, 151, 151);
 }
 
+.bomb {
+    background: black;
+}

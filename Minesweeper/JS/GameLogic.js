@@ -1,4 +1,5 @@
 "use strict"
 
 //from UI
-initUI()
+boardSetup(8, 8)
+populateBombs(15);

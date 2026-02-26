@@ -21,3 +21,28 @@ function boardSetup(rowQuantity, colQuantity) {
         }
     }
 }
+
+function populateBombs(bombQuantity) {
+
+    var cells = board.getElementsByClassName("cell");
+    var totalCells = cells.length;
+
+    if (bombQuantity > totalCells) {
+        console.error("Too many bombs.");
+        return;
+    }
+
+    var bombsPlaced = 0;
+
+    while (bombsPlaced < bombQuantity) {
+
+        var randomIndex = Math.floor(Math.random() * totalCells);
+        var cell = cells[randomIndex];
+
+        if (!cell.classList.contains("bomb")) {
+            cell.classList.add("bomb");
+            cell.setAttribute("is-bomb", "true");
+            bombsPlaced++;
+        }
+    }
+}
