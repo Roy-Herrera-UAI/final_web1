@@ -59,7 +59,9 @@ body {
 }
 
 .flagged {
-    background:transparent;
-    background-image: "/sprites/MINESWEEPER_FLAG.png";
+    background-image: url("../Sprites/MINESWEEPER_FLAG.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
