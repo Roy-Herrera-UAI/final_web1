@@ -16,7 +16,7 @@ body {
 #top {
     display: flex;
     flex-wrap: wrap;
-    align-content: space-between;
+    justify-content: space-around;
     width: var(--board-size);
     height: 80px;
     flex-direction: row;
@@ -67,20 +67,23 @@ body {
 }
 #mine-counter {
     display: flex;
-    justify-content: center;  /* horizontal */
-    align-items: center;      /* vertical */
-    flex: 1;    
+    justify-content: center;
+    align-items: center;    
     background: rgb(121, 121, 121);
     border: 4px inset rgb(151, 151, 151);
     font-size: 50px;
 }
 
 #face {
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+    background: rgb(121, 121, 121);
+    border: 4px inset rgb(151, 151, 151);
+    width: 100px;
     background-image: url("../Sprites/MINESWEEPER_SMILEY.png");
-    background-size: contain;
+    background-size:contain;
     background-repeat: no-repeat;
     background-position: center;
+
 }
-
-
-

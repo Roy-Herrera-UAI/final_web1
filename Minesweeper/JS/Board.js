@@ -185,6 +185,6 @@ function rightClickCell(r, c) {
 }
 
 function EndGame() {
-
+    board.style.pointerEvents = "none";
 }
 
