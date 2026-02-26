@@ -5,6 +5,7 @@ var board = document.getElementById("board");
 var boardMatrix = [];
 var rows;
 var cols;
+var flagsPlaced = 0;
 function boardSetup(rowQuantity, colQuantity, bombQuantity) {
     boardMatrix = []
     rows = rowQuantity;
@@ -95,8 +96,10 @@ function calculateAdjacents() {
 function ToggleFlag(cell) {
     if(cell.flagged){
         cell.element.classList.remove("flagged");
+        flagsPlaced--;
     }else{
         cell.element.classList.add("flagged");
+        flagsPlaced++;
     }
     cell.flagged = !cell.flagged;
 }
