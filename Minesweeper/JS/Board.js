@@ -62,8 +62,8 @@ function populateBombs(bombQuantity) {
         var c = Math.floor(Math.random() * cols);
 
         if (!boardMatrix[r][c].contains("bomb")) {
-            gameBoard[r][c].bomb = true;
-            placed++;
+            boardMatrix[r][c].bomb = true;
+            bombsPlaced++;
         }
     }
 }
