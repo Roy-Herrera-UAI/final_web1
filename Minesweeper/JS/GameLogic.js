@@ -7,6 +7,6 @@ function updateMineCounter() {
     counter.textContent = remaining.toString().padStart(3, "0");
 }
 function startGame(){
-    boardSetup(8, 8, 10)
+    boardSetup(8, 8, 10);
     updateMineCounter();
 }

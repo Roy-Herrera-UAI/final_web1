@@ -15,3 +15,7 @@ document.getElementById("startBtn").addEventListener("click", function () {
     document.getElementById("board").style.display = "flex";
     startGame();
 });
+
+document.getElementById("face").addEventListener("click", function () {
+    startGame();
+});

@@ -1,4 +1,5 @@
 # Buscaminas
+Se reinicia apretando en la cara feliz.
 Este proyecto fue realizado en base a los siguientes requerimientos:
 
 ## Reglas

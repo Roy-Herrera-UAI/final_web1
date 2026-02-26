@@ -6,14 +6,16 @@ var boardMatrix = [];
 var rows;
 var cols;
 var flagsPlaced = 0;
-var bombTotal;
 var revealedCells = 0;
+var bombTotal;
 function boardSetup(rowQuantity, colQuantity, bombQuantity) {
-    bombTotal=bombQuantity;
+    bombTotal= bombQuantity;
     boardMatrix = []
     rows = rowQuantity;
     cols = colQuantity;
     board.innerHTML = "";
+    flagsPlaced = 0;
+    revealedCells = 0;
     document.body.style.setProperty("--board-size", BOARD_SIZE + SIZE_FORMAT);
     for (var rowNumber = 0; rowNumber < rowQuantity; rowNumber++) {
         var row = document.createElement("div");
@@ -166,7 +168,7 @@ function countFlagsAround(row, col) {
 
 function chordCell(cell) {
     var row = cell.row;
-    var col = cell.col
+    var col = cell.col;
     if (!cell.revealed)
         return;
 

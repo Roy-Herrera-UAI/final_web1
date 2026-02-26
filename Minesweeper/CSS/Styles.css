@@ -14,7 +14,7 @@ body {
 }
 
 #top {
-    display: flex;
+    display: none;
     flex-wrap: wrap;
     justify-content: space-around;
     width: var(--board-size);
@@ -24,7 +24,7 @@ body {
     border: 4px solid rgb(54, 54, 54);    
 }
 #board {
-    display: flex;
+    display: none;
     flex-wrap: wrap;
     width: var(--board-size);
     height: var(--board-size);
