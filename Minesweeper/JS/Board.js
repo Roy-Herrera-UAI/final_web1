@@ -20,15 +20,12 @@ function boardSetup(rowQuantity, colQuantity, bombQuantity) {
         for (var colNumber = 0; colNumber < colQuantity; colNumber++) {
             var cell = document.createElement("div");
             cell.className = "cell";
-            (function (r, c) {
-                cell.addEventListener("click", function () {
-                    revealCell(r, c);
-                });
-            })(rowNumber, colNumber);
+            addCellInteractions(cell, rowNumber, colNumber)
             row.appendChild(cell);
             rowArray.push({
                 bomb: false,
                 revealed: false,
+                flagged: false,
                 adjacentBombs: 0,
                 element: cell,
                 row: rowNumber,
@@ -61,7 +58,6 @@ function populateBombs(bombQuantity) {
         if (!boardMatrix[r][c].bomb) {
             boardMatrix[r][c].bomb = true;
             bombsPlaced++;
-            boardMatrix[r][c].element.style.setProperty("background", "red")
         }
     }
 }
@@ -96,15 +92,90 @@ function calculateAdjacents() {
     }
 }
 
-function flagCell(cell) {
+function ToggleFlag(cell) {
 
 }
 
-function revealCell(r, c) {
-    var cellObj = boardMatrix[r][c];
-    console.log("Clicked:", r, c);
+function revealCell(cell) {
+    cell.revealed = true;
+    cell.element.classList.add("revealed");
+
+
+    if (cell.adjacentBombs > 0) {
+        cell.element.textContent = cell.adjacentBombs;
+        return;
+    }
+
+    if (cell.bomb) {
+        cell.element.classList.add("bomb");
+        alert("Game Over");
+        return;
+    }
+
+
+
+    recursiveReveal(cell.row, cell.col)
+}
+
+function recursiveReveal(r, c){
+    var adjacentCell;
+    for (var dr = -1; dr <= 1; dr++) {
+        for (var dc = -1; dc <= 1; dc++) {
+
+            var newR = r + dr;
+            var newC = c + dc;
+
+            if (
+                newR >= 0 && newR < rows &&
+                newC >= 0 && newC < cols
+            ) {
+                adjacentCell = getCellData(newR, newC)
+                if(!adjacentCell.revealed){
+                    revealCell(adjacentCell);
+                }
+            }
+        }
+    }
 }
 
 function chordCell(cell) {
+
+}
+
+
+function getCellData(r, c) {
+    var currentCellData = boardMatrix[r][c];
+    console.log("retrievedData:", r, c);
+    return currentCellData;
+}
+
+function addCellInteractions(cell, rowNumber, colNumber) {
+    cell.addEventListener("click", function (e) {
+        leftClickCell(rowNumber, colNumber);
+    });
+    cell.addEventListener("contextmenu", function (e) {
+        e.preventDefault();
+        rightClickCell(rowNumber, colNumber);
+    });
+}
+
+function leftClickCell(r, c) {
+    var cell = getCellData(r, c);
+    if (cell.flagged) return;
+    if (cell.bomb) {
+        EndGame();
+    }else if (cell.revealed){
+        chordCell(cell);
+    }else{
+        revealCell(cell);
+    }
+}
+function rightClickCell(r, c) {
+    var cell = getCellData(r, c);
+    if(cell.revealed) return;
+    ToggleFlag(cell);
+}
+
+function EndGame() {
 
 }

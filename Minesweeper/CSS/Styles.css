@@ -39,3 +39,8 @@ body {
 .bomb {
     background: black;
 }
+
+
+.revealed {
+    background: rgb(227, 227, 227);
+}
