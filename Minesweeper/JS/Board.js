@@ -93,27 +93,29 @@ function calculateAdjacents() {
 }
 
 function ToggleFlag(cell) {
-
+    if(cell.flagged){
+        cell.element.classList.remove("flagged");
+    }else{
+        cell.element.classList.add("flagged");
+    }
+    cell.flagged = !cell.flagged;
 }
 
 function revealCell(cell) {
     cell.revealed = true;
     cell.element.classList.add("revealed");
-
-
+    if(cell.flagged){
+        ToggleFlag(cell);
+    }
     if (cell.adjacentBombs > 0) {
         cell.element.textContent = cell.adjacentBombs;
         return;
     }
-
     if (cell.bomb) {
         cell.element.classList.add("bomb");
         alert("Game Over");
         return;
     }
-
-
-
     recursiveReveal(cell.row, cell.col)
 }
 
