@@ -6,9 +6,10 @@ var boardMatrix = [];
 var rows;
 var cols;
 var flagsPlaced = 0;
-var bombsTotal;
+var bombTotal;
+var revealedCells = 0;
 function boardSetup(rowQuantity, colQuantity, bombQuantity) {
-    bombsTotal=bombQuantity;
+    bombTotal=bombQuantity;
     boardMatrix = []
     rows = rowQuantity;
     cols = colQuantity;
@@ -108,19 +109,19 @@ function ToggleFlag(cell) {
 }
 
 function revealCell(cell) {
+    revealedCells++;
     cell.revealed = true;
     cell.element.classList.add("revealed");
+    if(revealedCells+bombTotal === rows*cols){
+        win();
+    }
     if(cell.flagged){
         ToggleFlag(cell);
     }
     if (cell.adjacentBombs > 0) {
         cell.element.textContent = cell.adjacentBombs;
         return;
-    }
-    if (cell.bomb) {
-        cell.element.classList.add("bomb");
-        alert("Game Over");
-        return;
+
     }
     recursiveReveal(cell.row, cell.col)
 }
@@ -146,14 +147,60 @@ function recursiveReveal(r, c){
     }
 }
 
-function chordCell(cell) {
+function countFlagsAround(row, col) {
+    var count = 0;
 
+    for (var r = row - 1; r <= row + 1; r++) {
+        for (var c = col - 1; c <= col + 1; c++) {
+
+            if (r < 0 || c < 0 || r >= rows || c >= cols)
+                continue;
+
+            if (boardMatrix[r][c].flagged)
+                count++;
+        }
+    }
+
+    return count;
+}
+
+function chordCell(cell) {
+    var row = cell.row;
+    var col = cell.col
+    if (!cell.revealed)
+        return;
+
+    if (cell.adjacentBombs === 0)
+        return;
+
+    var flagCount = countFlagsAround(row, col);
+    console.log(flagCount);
+    if (flagCount !== cell.adjacentBombs)
+        return;
+    for (var r = row - 1; r <= row + 1; r++) {
+        for (var c = col - 1; c <= col + 1; c++) {
+
+            if (r < 0 || c < 0 || r >= rows || c >= cols)
+                continue;
+
+            var neighbor = boardMatrix[r][c];
+
+            if (!neighbor.revealed && !neighbor.flagged) {
+
+                if (neighbor.bomb) {
+                    endGame(neighbor);
+                    return;
+                }
+
+                revealCell(neighbor);
+            }
+        }
+    }
 }
 
 
 function getCellData(r, c) {
     var currentCellData = boardMatrix[r][c];
-    console.log("retrievedData:", r, c);
     return currentCellData;
 }
 
@@ -171,8 +218,7 @@ function leftClickCell(r, c) {
     var cell = getCellData(r, c);
     if (cell.flagged) return;
     if (cell.bomb) {
-        cell.element.classList.add("exploded")
-        EndGame();
+        endGame(cell);
     }else if (cell.revealed){
         chordCell(cell);
     }else{
@@ -185,14 +231,16 @@ function rightClickCell(r, c) {
     ToggleFlag(cell);
 }
 
-function EndGame() {
+function endGame(cellExploded) {
+    cellExploded.element.classList.add("exploded")
     board.style.pointerEvents = "none";
     showAllBombs();
 }
 
-function Win() {
+function win() {
     board.style.pointerEvents = "none";
     document.getElementById("face").style.backgroundImage = "url(./Minesweeper/Sprites/minesweeper-swag.gif)";
+    showAllBombs();
 }
 
 function showAllBombs() {
@@ -201,7 +249,9 @@ function showAllBombs() {
         for (var c = 0; c < cols; c++) {
 
             var cell = boardMatrix[r][c];
-
+            if (cell.flagged) {
+                ToggleFlag(cell);
+            }
             if (cell.bomb) {
                 cell.element.classList.add("bomb");
             }
