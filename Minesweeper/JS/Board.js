@@ -6,7 +6,9 @@ var boardMatrix = [];
 var rows;
 var cols;
 var flagsPlaced = 0;
+var bombsTotal;
 function boardSetup(rowQuantity, colQuantity, bombQuantity) {
+    bombsTotal=bombQuantity;
     boardMatrix = []
     rows = rowQuantity;
     cols = colQuantity;
@@ -102,6 +104,7 @@ function ToggleFlag(cell) {
         flagsPlaced++;
     }
     cell.flagged = !cell.flagged;
+    updateMineCounter();
 }
 
 function revealCell(cell) {

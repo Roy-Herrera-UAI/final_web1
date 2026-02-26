@@ -16,6 +16,7 @@ body {
 #top {
     display: flex;
     flex-wrap: wrap;
+    align-content: space-between;
     width: var(--board-size);
     height: 80px;
     flex-direction: row;
@@ -41,8 +42,8 @@ body {
 
 .cell {
     display: flex;
-    justify-content: center;  /* horizontal */
-    align-items: center;      /* vertical */
+    justify-content: center;
+    align-items: center;
     flex: 1;    
     background: rgb(121, 121, 121);
     border: 4px inset rgb(151, 151, 151);
@@ -64,4 +65,14 @@ body {
     background-repeat: no-repeat;
     background-position: center;
 }
+#mine-counter {
+    display: flex;
+    justify-content: center;  /* horizontal */
+    align-items: center;      /* vertical */
+    flex: 1;    
+    background: rgb(121, 121, 121);
+    border: 4px inset rgb(151, 151, 151);
+    font-size: 50px;
+}
+
 
